@@ -25,12 +25,14 @@ const closeOrAdd = computed(() => {
 });
 </script>
 
+
 <template>
 	<header>
 		<h1>{{ props.title }}</h1>
 		<Button v-show="homePage" :text="closeOrAdd" :color="redOrGreen" />
 	</header>
 </template>
+
 
 <style scoped>
 header {

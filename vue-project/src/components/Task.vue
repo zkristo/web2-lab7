@@ -1,13 +1,4 @@
 <script setup>
-// export default {
-//   name: "Task",
-//   props: {
-//     task: Object,
-//   },
-// }
-
-// const name = "Task";
-
 const props = defineProps({
   task: Object,
 });
@@ -21,8 +12,8 @@ const onDblClick = () => {
 const onClick = () => {
   emits("delete-task", props.task.id);
 };
-
 </script>
+
 
 <template>
   <div @dblclick="onDblClick" :class="[task.reminder ? 'reminder' : '', 'task']">
@@ -32,6 +23,7 @@ const onClick = () => {
     <p> {{ props.task.day }} </p>
   </div>
 </template>
+
 
 <style scope>
 .fas {

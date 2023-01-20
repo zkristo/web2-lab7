@@ -8,70 +8,44 @@ import { useAddTaskStore } from "../stores/showTask";
 const storeAddTask = useAddTaskStore();
 
 //data
-const tasks = ref([]);
 
 //methods
 const toggleReminder = async (id) => {
-  const taskToToggle = await fetchTask(id);
-  const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder };
-
-  const res = await fetch(`http://localhost:5000/tasks/${id}`, {
-    method: "PUT",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(updTask),
-  });
-
-  const data = await res.json();
-
   tasks.value = tasks.value.map((task) =>
-    task.id === id ? { ...task, reminder: data.reminder } : task
+    task.id === id ? { ...task, reminder: !task.reminder } : task
   );
+  localStorage.setItem("tasks", JSON.stringify(tasks.value));
 };
 
 const deleteTask = async (id) => {
   if (confirm("Are you sure?")) {
-    const res = await fetch(`http://localhost:5000/tasks/${id}`, {
-      method: "DELETE",
-    });
-
-    res.status === 200
-      ? (tasks.value = tasks.value.filter((task) => task.id !== id))
-      : alert("Error deleting task");
+    tasks.value = tasks.value.filter((task) => task.id !== id);
+    localStorage.setItem("tasks", JSON.stringify(tasks.value));
   }
 };
 
 const addTask = async (task) => {
-  const res = await fetch("http://localhost:5000/tasks", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(task),
-  });
+  const id = Math.floor(Math.random() * 10000) + 1;
+  const newTask = { id, ...task };
+  tasks.value = [...tasks.value, newTask];
+  localStorage.setItem("tasks", JSON.stringify(tasks.value));
 
-  const data = await res.json();
-
-  tasks.value = [...tasks.value, data];
-
-  storeAddTask.hideTask();
+  storeAddTask.toggleTask();
 };
 
-const fetchTasks = async () => {
-  const res = await fetch("http://localhost:5000/tasks");
-  const data = await res.json();
-  return data;
-};
 
-const fetchTask = async (id) => {
-  const res = await fetch(`http://localhost:5000/tasks/${id}`);
-  const data = await res.json();
-  return data;
+const getTasks = () => {
+  if (localStorage.getItem("tasks") === null) {
+    fetch("./db.json")
+      .then((res) => res.json())
+      .then((json) => localStorage.setItem("tasks", JSON.stringify(json.tasks)));
+  }
+  return JSON.parse(localStorage.getItem("tasks"));
 };
-
-//lifecycle hooks
-tasks.value = await fetchTasks();
+const tasks = ref(getTasks());
+setTimeout(() => {
+  console.log(tasks.value);
+}, 1000);
 </script>
 
 <template>

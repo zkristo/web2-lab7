@@ -1,16 +1,5 @@
 <script setup>
 import Task from "./Task.vue";
-// export default {
-// 	name: "Tasks",
-// 	props: {
-// 		tasks: Array,
-// 	},
-// 	components: {
-// 		Task,
-// 	},
-// 	emits: ["delete-task", "toggle-reminder"],
-// }
-
 const name = "Tasks";
 
 const props = defineProps({

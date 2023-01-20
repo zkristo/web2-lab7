@@ -1,13 +1,3 @@
-<script setup>
-// export default {
-//   name: "Footer",
-// };
-
-const name = "Footer";
-
-</script>
-
-
 <template>
   <footer>
     <p>Copyright &copy; 2023 </p>
