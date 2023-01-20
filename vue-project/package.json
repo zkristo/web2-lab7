@@ -14,7 +14,8 @@
     "json-server": "^0.17.1",
     "pinia": "^2.0.28",
     "vue": "^3.2.45",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.1.6",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
@@ -24,5 +25,7 @@
     "eslint-plugin-vue": "^9.3.0",
     "prettier": "^2.7.1",
     "vite": "^4.0.0"
-  }
+  },
+  "main": "main.js",
+  "license": "MIT"
 }
