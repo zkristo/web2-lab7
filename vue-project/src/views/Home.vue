@@ -44,7 +44,6 @@ const getTasks = () => {
 };
 const tasks = ref(getTasks());
 setTimeout(() => {
-  console.log(tasks.value);
 }, 1000);
 </script>
 
